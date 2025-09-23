@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+/src/App copy 2.jsx
+/src/App copy.jsx
 
 # Editor directories and files
 .vscode/*
