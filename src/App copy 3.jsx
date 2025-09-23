@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import Editor from "@monaco-editor/react";   // ✅ Monaco editor
+import Editor from "@monaco-editor/react";   // ✅ correct import
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { Inspector, ObjectLabel } from "react-inspector";
-import "./App.css"; // ✅ import your CSS file
+import "./App.css"; // ✅ import our CSS
 
-// Custom label with preview (for objects/arrays)
+
+
+// Custom label with preview
 function CustomObjectLabel({ name, data, isNonenumerable }) {
   if (Array.isArray(data)) {
     const preview = data.slice(0, 5).map(v => JSON.stringify(v)).join(", ");
@@ -26,6 +28,7 @@ function CustomObjectLabel({ name, data, isNonenumerable }) {
   }
   return <ObjectLabel name={name} data={data} isNonenumerable={isNonenumerable} />;
 }
+
 
 export default function App() {
   const [code, setCode] = useState(`// Try JS here
@@ -103,15 +106,16 @@ cons
 </html>`;
 
   return (
-    <div className="app-root">
-      {/* Header */}
-      <header className="header">⚡ PlayCode Console Clone</header>
+    <div className="h-screen w-screen bg-[#071022] text-slate-200 font-sans">
+      <header className="flex items-center gap-3 p-3 border-b border-slate-800 bg-[#0c1428] shadow-md">
+        <div className="font-semibold text-lg">⚡ PlayCode Console Clone</div>
+      </header>
 
-      <PanelGroup direction="horizontal" className="panel-group">
+      <PanelGroup direction="horizontal" className="h-[calc(100%-48px)]">
         {/* Editor */}
         <Panel defaultSize={55} minSize={25}>
-          <div className="editor-pane">
-            <div className="title">Editor</div>
+          <div className="h-full flex flex-col border-r border-slate-800">
+            <div className="p-2 text-xs text-slate-400 bg-[#0c1428]">Editor</div>
             <Editor
               height="100%"
               defaultLanguage="javascript"
@@ -148,45 +152,59 @@ cons
                 });
               }}
             />
+
           </div>
         </Panel>
 
-        {/* Resize handle */}
-        <PanelResizeHandle className="resize-handle" />
+        <PanelResizeHandle className="w-1.5 bg-slate-700/30 hover:bg-slate-500 cursor-col-resize" />
 
         {/* Console */}
         <Panel minSize={25}>
-          <div className="console-pane">
+          <div className="h-full flex flex-col">
             {/* Console Header */}
-            <div className="console-header">
-              <span>Console</span>
-              <button onClick={() => setLogs([])}>×</button>
+            <div className="flex items-center justify-between px-3 py-2 border-b border-slate-800 bg-[#0c1428] text-xs">
+              <span className="uppercase tracking-wider text-slate-400">Console</span>
+              <button
+                className="text-slate-500 hover:text-slate-300"
+                onClick={() => setLogs([])}
+              >
+                ×
+              </button>
             </div>
 
             {/* Console Body */}
-            <div className="console-body">
+            <div className="flex-1 overflow-auto bg-[#0d1117] text-sm font-mono px-3 py-2 space-y-1">
               {logs.map((log, i) => (
-                <div key={i}>
+                <div key={i} className="leading-relaxed">
                   {log.type === "clear" ? (
-                    <span className="log-clear">Console was cleared</span>
+                    <span className="text-slate-500 italic">Console was cleared</span>
                   ) : log.type === "error" ? (
-                    <div className="log-error">
+                    <div className="text-red-400 whitespace-pre-wrap">
                       {log.args[0]}
                       {log.args[1] && (
-                        <div className="log-error-details">{log.args[1]}</div>
+                        <div className="text-xs text-red-500 mt-1">{log.args[1]}</div>
                       )}
                     </div>
                   ) : (
-                    <div className="log-line">
+                    <div className="flex flex-wrap gap-2">
                       {log.args.map((a, j) => {
-                        if (typeof a === "string")
-                          return <span key={j} className="log-string">{a}</span>;
-                        if (typeof a === "number")
-                          return <span key={j} className="log-number">{a}</span>;
-                        if (typeof a === "boolean")
-                          return <span key={j} className={a ? "log-boolean-true" : "log-boolean-false"}>
-                            {String(a)}
-                          </span>;
+                        if (typeof a === "string") {
+                          return (
+                            <span key={j} className="text-green-400 whitespace-pre-wrap">
+                              {a}
+                            </span>
+                          );
+                        }
+                        if (typeof a === "number") {
+                          return <span key={j} className="text-blue-400">{a}</span>;
+                        }
+                        if (typeof a === "boolean") {
+                          return (
+                            <span key={j} className={a ? "text-cyan-400" : "text-red-400"}>
+                              {String(a)}
+                            </span>
+                          );
+                        }
                         return (
                           <Inspector
                             key={j}

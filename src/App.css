@@ -1,42 +1,141 @@
+/* Global reset + dark background */
+/* Root App Layout */
+.app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* full screen height */
+  width: 100%;
+  background-color: #071022;
+  color: #e5e7eb;
+  font-family: "Inter", sans-serif;
+}
+
+
+
+html,
+body,
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+  background-color: #071022;
+  color: #e5e7eb;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-bottom: 1px solid #1e293b;
+  background-color: #0c1428;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: 600;
+  font-size: 1.1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* PanelGroup container */
+.panel-group {
+  flex: 1;
+  /* take remaining height after header */
+  display: flex;
+  min-height: 0;
+  /* allow children to shrink properly */
 }
 
-.card {
-  padding: 2em;
+/* Editor panel */
+.editor-pane {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #1e293b;
+  height: 100%;
 }
 
-.read-the-docs {
-  color: #888;
+.editor-pane .title {
+  padding: 0.5rem;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  background: #0c1428;
+  border-bottom: 1px solid #1e293b;
+}
+
+/* Resize handle */
+.resize-handle {
+  width: 6px;
+  background-color: rgba(100, 116, 139, 0.3);
+  cursor: col-resize;
+}
+
+.resize-handle:hover {
+  background-color: rgba(100, 116, 139, 0.5);
+}
+
+/* Console panel */
+.console-pane {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.console-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #1e293b;
+  background-color: #0c1428;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.console-body {
+  flex: 1;
+  overflow: auto;
+  background: #0d1117;
+  font-size: 0.875rem;
+  font-family: monospace;
+  padding: 0.5rem 0.75rem;
+}
+
+/* Log styles */
+.console-body .log-string {
+  color: #4ade80;
+  /* green */
+  white-space: pre-wrap;
+}
+
+.console-body .log-number {
+  color: #60a5fa;
+  /* blue */
+}
+
+.console-body .log-boolean-true {
+  color: #22d3ee;
+  /* cyan */
+}
+
+.console-body .log-boolean-false {
+  color: #f87171;
+  /* red */
+}
+
+.console-body .log-error {
+  color: #f87171;
+  white-space: pre-wrap;
+}
+
+.console-body .log-error-details {
+  color: #fca5a5;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.console-body .log-clear {
+  color: #94a3b8;
+  font-style: italic;
 }
