@@ -13,6 +13,18 @@ dist-ssr
 *.local
 /src/App copy 2.jsx
 /src/App copy.jsx
+tailwind.config.js
+/tailwind.config.cjs
+/tailwind.config.ts
+/tailwind.config.mjs
+/postcss.config.js
+/postcss.config.cjs
+/postcss.config.ts
+/postcss.config.mjs
+/.turbor
+/.next
+/.nuxt 
+/dist
 
 # Editor directories and files
 .vscode/*

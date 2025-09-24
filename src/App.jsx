@@ -105,7 +105,7 @@ cons
   return (
     <div className="app-root">
       {/* Header */}
-      <header className="header">⚡ PlayCode Console Clone</header>
+      <header className="header">⚡Javascript-Light</header>
 
       <PanelGroup direction="horizontal" className="panel-group">
         {/* Editor */}
